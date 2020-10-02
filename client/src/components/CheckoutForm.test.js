@@ -23,7 +23,6 @@ test("form shows success message on submit with form details", async () => {
     const wrapper = render(<CheckoutForm />)
     const button = wrapper.getByRole('button')
     console.log(wrapper.debug)
-    const successMessage = wrapper.queryByTestId('successMessage')
 
     //Act
     fireEvent.change(screen.getByLabelText(/first name:/i), {target:{value:'David'}});
@@ -32,8 +31,12 @@ test("form shows success message on submit with form details", async () => {
     fireEvent.change(screen.getByLabelText(/city:/i), {target:{value:'Salem'}});
     fireEvent.change(screen.getByLabelText(/state:/i), {target:{value:'UT'}});
     fireEvent.change(screen.getByLabelText(/zip:/i), {target:{value:'84321'}});
-
+    
     fireEvent.click(button);
+
+    const successMessage = wrapper.getByTestId('successMessage')
+
+
 
     //Assert
     expect(await successMessage).toBeInTheDocument()
